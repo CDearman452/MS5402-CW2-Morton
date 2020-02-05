@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2815798304558801531}
   - component: {fileID: 2815798304558801530}
   - component: {fileID: 2815798304558801525}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PickupPos
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2815798305613630453}
   - component: {fileID: 2815798305613630459}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CullCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,9 +180,9 @@ GameObject:
   - component: {fileID: 2815798305963813988}
   - component: {fileID: 2815798305965070052}
   - component: {fileID: 2815798305404254186}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FPSController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -471,6 +471,9 @@ MonoBehaviour:
   go_cameraObj: {fileID: 2815798305966870278}
   go_pickupPos: {fileID: 2815798304558801524}
   go_cullCamera: {fileID: 2815798305613630452}
+  lm_playerExclude:
+    serializedVersion: 2
+    m_Bits: 279
   fl_maxPickupDist: 4
 --- !u!1 &2815798305966870278
 GameObject:
@@ -484,7 +487,7 @@ GameObject:
   - component: {fileID: 2815798305967197476}
   - component: {fileID: 2815798305965428996}
   - component: {fileID: 2815798305977704258}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
