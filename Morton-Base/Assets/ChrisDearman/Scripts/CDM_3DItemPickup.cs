@@ -8,12 +8,16 @@ public class CDM_3DItemPickup : MonoBehaviour
     // Variables
     // Private
     private GameObject go_held;
-    
+    private GameObject go_pendantSwitch;
+    private GameObject[] go_pendants;
+
     private RaycastHit rch_PickupCheck;
 
     private Ray ry_sightRay;
 
     private Vector3 v3_pickupStartPos;
+
+    private bool bl_pendantPresent;
     //---------------------------------------
     // Public
     public GameObject go_cameraObj;
@@ -24,12 +28,18 @@ public class CDM_3DItemPickup : MonoBehaviour
 
     public float fl_maxPickupDist;
     //==============================================================================================================
+    // Start is called before the first frame
+    void Start()
+    {
+        go_pendants = GameObject.FindGameObjectsWithTag("Pickup");
+    }
+    //==============================================================================================================
     // Update is called once per frame
     void Update()
     {
         //---------------------------------------
         // Check the players Input
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)||Input.GetKeyDown(KeyCode.Mouse0))
         {
             //---------------------------------------
             ry_sightRay = Camera.main.ScreenPointToRay(Input.mousePosition); // Create Ray
@@ -56,11 +66,37 @@ public class CDM_3DItemPickup : MonoBehaviour
                 {
                     if (go_held != null) // If an object is held
                     {
-                        go_held.transform.SetParent(rch_PickupCheck.transform.gameObject.transform); // Unchild the pickup
                         GameObject _go_temp = rch_PickupCheck.transform.gameObject; // Referance the interacted object as a temp variable
-                        go_held.transform.position = _go_temp.transform.GetChild(0).transform.position; // Move the pickup to the set location
-                        go_held.layer = LayerMask.NameToLayer("Default"); // Swap it to the default layermask so that it is no longer on the top render layer
-                        go_held = null;
+                        //---------------------------------------
+                        foreach (GameObject _go in go_pendants)
+                        {
+                            if (_go.transform.position == _go_temp.transform.GetChild(0).transform.position)
+                            {
+                                bl_pendantPresent = true;
+                                go_pendantSwitch = _go;
+                            }
+                        }
+                        //---------------------------------------
+                        if (!bl_pendantPresent)
+                        {
+                            go_held.transform.SetParent(rch_PickupCheck.transform.gameObject.transform); // Unchild the pickup
+                            go_held.transform.position = _go_temp.transform.GetChild(0).transform.position; // Move the pickup to the set location
+                            go_held.layer = LayerMask.NameToLayer("Default"); // Swap it to the default layermask so that it is no longer on the top render layer
+                            go_held = null;
+                        }
+                        else
+                        {
+                            go_held.transform.SetParent(rch_PickupCheck.transform.gameObject.transform); // Unchild the pickup
+                            go_held.transform.position = _go_temp.transform.GetChild(0).transform.position; // Move the pickup to the set location
+                            go_held.layer = LayerMask.NameToLayer("Default"); // Swap it to the default layermask so that it is no longer on the top render layer
+                            go_held = go_pendantSwitch; // Switch the existing pickup within the portrate to the held item
+                            //---------------------------------------
+                            go_held.transform.SetParent(go_cameraObj.transform); // Set the parent of the new pickup
+                            go_held.transform.position = go_pickupPos.transform.position; // Move the pickup to the same position as an empty child on the player
+                            go_held.layer = LayerMask.NameToLayer("Pickup"); // Switch the pickups layermask so it will be rendered as top layer
+                        }
+                        //---------------------------------------
+                        bl_pendantPresent = false;
                     }
                     //---------------------------------------
                 }

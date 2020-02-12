@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 153016102}
   m_Layer: 10
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: PickupPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,7 +164,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.075
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &153016103
 MeshRenderer:
@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 180950873}
   m_Layer: 10
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: PickupPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,7 +616,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.075
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &180950874
 MeshRenderer:
@@ -769,7 +769,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-52768
+  m_Name: pb_Mesh17614
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -940,7 +940,7 @@ GameObject:
   - component: {fileID: 277068404}
   m_Layer: 10
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: PickupPlace
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -970,7 +970,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.075
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &277068405
 MeshRenderer:
@@ -1488,7 +1488,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-58762
+  m_Name: pb_Mesh17576
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3122,7 +3122,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-49290
+  m_Name: pb_Mesh17406
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
