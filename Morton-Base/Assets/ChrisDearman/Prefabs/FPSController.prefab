@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2815798305613630453
 Transform:
   m_ObjectHideFlags: 0
@@ -473,7 +473,7 @@ MonoBehaviour:
   go_cullCamera: {fileID: 2815798305613630452}
   lm_playerExclude:
     serializedVersion: 2
-    m_Bits: 279
+    m_Bits: 1303
   fl_maxPickupDist: 4
 --- !u!1 &2815798305966870278
 GameObject:
