@@ -7,7 +7,6 @@ public class CDM_3DItemPickup : MonoBehaviour
     //==============================================================================================================
     // Variables
     // Private
-    private GameObject go_held;
     private GameObject go_pendantSwitch;
     private GameObject[] go_pendants;
 
@@ -21,6 +20,7 @@ public class CDM_3DItemPickup : MonoBehaviour
     private bool bl_pendantPresent;
     //---------------------------------------
     // Public
+    public GameObject go_held;
     public GameObject go_cameraObj;
     public GameObject go_pickupPos;
     public GameObject go_cullCamera;
