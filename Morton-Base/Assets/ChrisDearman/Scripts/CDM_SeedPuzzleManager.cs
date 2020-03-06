@@ -29,7 +29,7 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
             {
                 if (GameObject.FindGameObjectWithTag("Player").GetComponent<CDM_3DItemPickup>().go_held = go_seedPuzzleObjects[0])
                 {
-
+                    
                 }
             }
 

@@ -72,7 +72,7 @@ public class CDM_3DItemPickup : MonoBehaviour
                         //---------------------------------------
                         foreach (GameObject _go in go_pendants)
                         {
-                            if (_go.transform.position == _go_temp.transform.GetChild(0).transform.position)
+                            if (_go.transform.position == _go_temp.transform.GetChild(0).transform.position) // Check if there is a pendant already at the position on the painting
                             {
                                 bl_pendantPresent = true;
                                 go_pendantSwitch = _go;
@@ -104,6 +104,10 @@ public class CDM_3DItemPickup : MonoBehaviour
                         bl_pendantPresent = false;
                     }
                     //---------------------------------------
+                }
+                else if (rch_PickupCheck.transform.tag == "DirtHole")
+                {
+
                 }
             }
             //---------------------------------------

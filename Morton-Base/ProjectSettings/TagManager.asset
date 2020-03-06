@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - Pickup
   - PickupPlace
+  - DirtHole
   layers:
   - Default
   - TransparentFX

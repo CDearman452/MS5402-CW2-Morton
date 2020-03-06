@@ -36,6 +36,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                     bl_locksCompleted[Array.IndexOf(go_pendants, _go)] = true;
                 }
             }
+
             in_locksCompleted = 0;
             foreach (bool _bl in bl_locksCompleted)
             {
