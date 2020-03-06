@@ -105,9 +105,9 @@ public class CDM_3DItemPickup : MonoBehaviour
                     }
                     //---------------------------------------
                 }
-                else if (rch_PickupCheck.transform.tag == "DirtHole")
+                else if (rch_PickupCheck.transform.tag == "DirtHole") // Check for the second puzzles trigger zone
                 {
-
+                    GameObject.Find("PuzzleManagers").GetComponent<CDM_SeedPuzzleManager>().bl_trigger = true;
                 }
             }
             //---------------------------------------
