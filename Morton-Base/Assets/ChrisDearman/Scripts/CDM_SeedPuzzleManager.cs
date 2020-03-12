@@ -37,6 +37,7 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     public GameObject[] go_worldSets;
     public GameObject[] go_treeSet;
     public GameObject[] go_memoryTableau;
+    public GameObject[] go_door;
     public Light MemorySpot;
 
     public Material mt_memorySky;
@@ -227,6 +228,11 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
                         go_player.SetActive(true);
 
                         RenderSettings.skybox = null;
+
+                        go_door[0].transform.localPosition = new Vector3(-1.346f, 1.766f, -1.292f);
+                        go_door[0].transform.localRotation = Quaternion.Euler(0, 105, 0);
+                        go_door[1].transform.localPosition = new Vector3(3.768f, 1.766f, -1.292f);
+                        go_door[1].transform.localRotation = Quaternion.Euler(0, 75, 0);
 
                         bl_fadeIn = true;
                         bl_fadeComplete = false;
