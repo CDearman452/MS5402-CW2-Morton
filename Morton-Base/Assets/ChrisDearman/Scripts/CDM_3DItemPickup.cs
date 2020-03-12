@@ -45,7 +45,7 @@ public class CDM_3DItemPickup : MonoBehaviour
             ry_sightRay = Camera.main.ScreenPointToRay(Input.mousePosition); // Create Ray
             Debug.DrawRay(ry_sightRay.origin, ry_sightRay.direction, Color.blue); // Debug view of ray in editor
             if (Physics.Raycast(ry_sightRay, out rch_PickupCheck, fl_maxPickupDist, lm_playerExclude)) // If a ray using the above parameters hits something within the specified layer/s and within range return true and fill the raycasthit variable
-            {
+            {;
                 if (rch_PickupCheck.transform.tag == "Pickup") // If the object is a pickup
                 {
                     if (go_held != null) // If an object is already held
