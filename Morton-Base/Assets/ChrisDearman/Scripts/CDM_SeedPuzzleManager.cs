@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityStandardAssets;
+using UnityStandardAssets.Characters;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class CDM_SeedPuzzleManager : MonoBehaviour
 {
@@ -19,8 +22,11 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
 
     private GameObject go_blackOut;
     private GameObject go_player;
+    private GameObject go_playerCam;
 
     private AudioSource as_memory;
+
+    private Memory[] mem_list;
     //---------------------------------------
     // public
     public bool bl_trigger = false;
@@ -31,7 +37,6 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     public GameObject[] go_worldSets;
     public GameObject[] go_treeSet;
     public GameObject[] go_memoryTableau;
-    public Light SkyLightSource;
     public Light MemorySpot;
 
     public Material mt_memorySky;
@@ -41,9 +46,16 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        go_playerCam = GameObject.Find("FirstPersonCharacter");
+
         go_blackOut = GameObject.Find("BlackOut");
         go_player = GameObject.FindGameObjectWithTag("Player");
-        as_memory = GameObject.Find("PickupPos").GetComponent<AudioSource>();
+        as_memory = GameObject.Find("AudioSource").GetComponent<AudioSource>();
+
+        mem_list = new Memory[3];
+        mem_list[0] = new Memory(1, MemorySounds[0]);
+        mem_list[1] = new Memory(1, MemorySounds[1]);
+        mem_list[2] = new Memory(1, MemorySounds[2]);
     }
     //==============================================================================================================
     // Update is called once per frame
@@ -75,19 +87,19 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
             {
                 if (in_num == 0) MemoryTransition(0);
 
-                MemorySequence(new Memory(1, MemorySounds[0]));
+                MemorySequence(mem_list[0]);
             }
             else if (in_stage == 1)//------------------
             {
                 if (in_num == 0) MemoryTransition(0);
 
-                MemorySequence(new Memory(1, MemorySounds[1]));
+                MemorySequence(mem_list[0]);
             }
             else if (in_stage >= 2)//------------------
             {
                 if (in_num == 0) MemoryTransition(0);
 
-                MemorySequence(new Memory(1, MemorySounds[2]));
+                MemorySequence(mem_list[0]);
             }
         }
         //------------------------------------------
@@ -134,9 +146,8 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     // Unchild a pickup
     void unchild()
     {
-        Debug.Log("Child");
         go_player.GetComponent<CDM_3DItemPickup>().go_held.transform.SetParent(null); // Unchild the pickup
-        go_player.GetComponent<CDM_3DItemPickup>().go_held.transform.position = new Vector3(0, 0, -100); // Move the pickup to the set location
+        go_player.GetComponent<CDM_3DItemPickup>().go_held.transform.position = new Vector3(0, -100, 0); // Move the pickup to the set location
         go_player.GetComponent<CDM_3DItemPickup>().go_held.layer = LayerMask.NameToLayer("Default"); // Swap it to the default layermask so that it is no longer on the top render layer
         go_player.GetComponent<CDM_3DItemPickup>().go_held = null;
     }
@@ -147,21 +158,29 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
         if (identifier == 0)
         {
             unchild(); // Remove Object
-            if (go_treeSet[in_stage] != null) go_treeSet[in_stage].SetActive(false); // Deactivate the Current Tree Asset
+            mem_list[in_stage].playerPos = go_player.transform.position;
+
+            if (go_treeSet[in_stage] != null && in_stage != 1) go_treeSet[in_stage].SetActive(false); // Deactivate the Current Tree Asset
             go_memoryTableau[in_stage].SetActive(true);
+
             go_worldSets[1].SetActive(true);
             go_worldSets[0].SetActive(false);
+
             RenderSettings.skybox = mt_memorySky;
-            RenderSettings.sun = null;
+
             in_num++;
         }
         else if (identifier == 1)
         {
             bl_fadeComplete = false;
+
             go_memoryTableau[in_stage].SetActive(false);
+
             go_worldSets[0].SetActive(true);
             go_worldSets[1].SetActive(false);
+
             go_treeSet[in_stage + 1].SetActive(true);
+
             in_stage++;
             in_num = 0;
         }
@@ -170,6 +189,8 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     // Run memory based on stage
     void MemorySequence(Memory _mem)
     {
+        Camera.main.transform.LookAt(go_memoryTableau[in_stage].transform);
+
         if (bl_fadeIn == false)
         {
             if (MemorySpot.intensity < 10) MemorySpot.intensity += 0.1f;
@@ -200,13 +221,16 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
                     {
                         MemoryTransition(1);
                         MemorySpot.intensity = 0;
+
                         go_player.SetActive(false);
                         go_player.transform.position = _mem.playerPos;
                         go_player.SetActive(true);
-                        RenderSettings.skybox = _mem.skyBox;
-                        RenderSettings.sun = SkyLightSource;
+
+                        RenderSettings.skybox = null;
+
                         bl_fadeIn = true;
                         bl_fadeComplete = false;
+                        bl_waitForAudio = false;
                     }
                 }
             }

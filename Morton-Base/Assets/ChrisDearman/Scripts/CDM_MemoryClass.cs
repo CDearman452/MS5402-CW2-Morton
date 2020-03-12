@@ -18,5 +18,4 @@ public class Memory
         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         skyBox = RenderSettings.skybox;
     }
-
 }
