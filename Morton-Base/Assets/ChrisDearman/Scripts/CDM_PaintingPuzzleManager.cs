@@ -88,7 +88,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Check");
                         bl_fadeOut = false;
                     }
                 }
