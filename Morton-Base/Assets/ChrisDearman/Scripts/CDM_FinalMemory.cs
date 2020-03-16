@@ -22,26 +22,23 @@ public class CDM_FinalMemory : MonoBehaviour
     private int in_num = 0;
 
     private GameObject go_blackOut;
-    private GameObject go_memoryObject;
-    private GameObject go_endScreen;
-
-    private AudioSource as_memory;
 
     private Memory mem_01;
     //---------------------------
     // Public
     public GameObject[] go_worldSets;
+    public GameObject go_memoryObject;
+    public GameObject go_endScreen;
     public Material mt_memorySky;
     public Light lt_memorySpot;
     public AudioClip ac_memorySound;
+    public AudioSource as_memory;
     //==============================================================================================================
     // Start is called before the first frame update
     void Start()
     {
         go_blackOut = GameObject.Find("BlackOut");
-        go_memoryObject = GameObject.Find("FinalMemoryObject");
         mem_01 = new Memory(1, ac_memorySound);
-        go_endScreen = GameObject.Find("EndScreen");
     }
     //==============================================================================================================
     // Update is called once per frame
@@ -65,6 +62,7 @@ public class CDM_FinalMemory : MonoBehaviour
                     go_memoryObject.SetActive(true);
                     go_worldSets[1].SetActive(true);
                     go_worldSets[0].SetActive(false);
+                    GameObject.FindGameObjectWithTag("Player").SetActive(false);
                     RenderSettings.skybox = mt_memorySky;
                     lt_memorySpot.intensity = 10;
                     bl_fadeIn = true;
@@ -72,7 +70,6 @@ public class CDM_FinalMemory : MonoBehaviour
             }
             else if (bl_fadeIn)
             {
-                if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
 
                 float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
                 Color cl_newFade = go_blackOut.GetComponent<Image>().color;
@@ -127,8 +124,6 @@ public class CDM_FinalMemory : MonoBehaviour
                 }
                 else if (in_num == 1)
                 {
-                    if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
-
                     float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
                     Color cl_newFade = go_blackOut.GetComponent<Image>().color;
 

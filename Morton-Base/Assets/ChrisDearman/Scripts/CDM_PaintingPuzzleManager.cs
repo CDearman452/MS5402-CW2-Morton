@@ -20,7 +20,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
     private GameObject go_blackOut;
     private GameObject go_player;
     private Memory mem_01;
-    private AudioSource as_memory;
     //---------------------------------------
     // public
     public GameObject[] go_paintings;
@@ -29,6 +28,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
     public GameObject go_memoryObject;
     public GameObject go_door;
     public AudioClip ac_memAudio;
+    public AudioSource as_memory;
     public Material mt_memorySky;
     public Light lt_memorySpot;
     public float fl_fadeDuration;
@@ -39,7 +39,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
         bl_locksCompleted = new bool[3];
         mem_01 = new Memory(1, ac_memAudio);
         go_blackOut = GameObject.Find("BlackOut");
-        as_memory = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         go_player = GameObject.FindGameObjectWithTag("Player");
     }
     //==============================================================================================================
@@ -97,6 +96,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                     go_memoryObject.SetActive(true);
                     go_worldSets[1].SetActive(true);
                     go_worldSets[0].SetActive(false);
+                    go_player.SetActive(false);
                     RenderSettings.skybox = mt_memorySky;
                     lt_memorySpot.intensity = 10;
                     bl_fadeIn = true;
@@ -105,8 +105,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
 
                 if (bl_fadeIn)
                 {
-                    if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
-
                     float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
                     Color cl_newFade = go_blackOut.GetComponent<Image>().color;
 
@@ -149,6 +147,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                                 go_memoryObject.SetActive(false);
                                 go_worldSets[0].SetActive(true);
                                 go_worldSets[1].SetActive(false);
+                                go_player.SetActive(true);
                                 RenderSettings.skybox = null;
                                 lt_memorySpot.intensity = 0;
 
@@ -162,7 +161,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                                 in_num++;
                             }
                         }
-                        else if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
                     }
                 }
                 else if (in_num == 2)
@@ -178,7 +176,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                     else
                     {
                         bl_memComplete = false;
-                        GetComponent<CDM_PaintingPuzzleManager>().enabled = false;
+                        in_num++;
                     }
                 }
             }
