@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public GameObject fadeInPanel;
+    public GameObject go_optionsMenu;
+    public GameObject go_creditsMenu;
+    public GameObject go_mainMenu;
 
     private void Awake()
     {
@@ -29,20 +32,32 @@ public class MainMenu : MonoBehaviour
         else fadeInPanel.SetActive(false);
     }
 
-    public void PlayGame ()
+    public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Menu_Scene");
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame ()
     {
         Debug.Log("Quit!");
         Application.Quit();
+    }
+
+    public void OptionsMenu()
+    {
+        go_mainMenu.SetActive(false);
+        go_optionsMenu.SetActive(true);
+    }
+
+    public void CreditsMenu()
+    {
+        go_mainMenu.SetActive(false);
+        go_creditsMenu.SetActive(true);
     }
 }
 
