@@ -20,7 +20,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
     private GameObject go_blackOut;
     private GameObject go_player;
     private Memory mem_01;
-    private AudioSource as_memory;
+    public AudioSource as_memory;
     //---------------------------------------
     // public
     public GameObject[] go_paintings;
@@ -39,7 +39,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
         bl_locksCompleted = new bool[3];
         mem_01 = new Memory(1, ac_memAudio);
         go_blackOut = GameObject.Find("BlackOut");
-        as_memory = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         go_player = GameObject.FindGameObjectWithTag("Player");
     }
     //==============================================================================================================
@@ -94,6 +93,7 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                 else if (in_num == 0)
                 {
                     mem_01.playerPos = go_player.transform.position;
+                    go_player.SetActive(false);
                     go_memoryObject.SetActive(true);
                     go_worldSets[1].SetActive(true);
                     go_worldSets[0].SetActive(false);
@@ -105,7 +105,6 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
 
                 if (bl_fadeIn)
                 {
-                    if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
 
                     float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
                     Color cl_newFade = go_blackOut.GetComponent<Image>().color;
@@ -155,14 +154,12 @@ public class CDM_PaintingPuzzleManager : MonoBehaviour
                                 go_door.transform.localPosition = new Vector3(0.139f, 1.988f, -1.686f);
                                 go_door.transform.localRotation = Quaternion.Euler(0, -75, 0);
 
-                                go_player.SetActive(false);
                                 go_player.transform.position = mem_01.playerPos;
                                 go_player.SetActive(true);
 
                                 in_num++;
                             }
                         }
-                        else if (go_memoryObject != null) Camera.main.transform.LookAt(go_memoryObject.transform);
                     }
                 }
                 else if (in_num == 2)

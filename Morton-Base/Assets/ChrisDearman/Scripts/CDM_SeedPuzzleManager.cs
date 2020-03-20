@@ -22,9 +22,8 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
 
     private GameObject go_blackOut;
     private GameObject go_player;
-    private GameObject go_playerCam;
 
-    private AudioSource as_memory;
+    public AudioSource as_memory;
 
     private Memory[] mem_list;
     //---------------------------------------
@@ -47,11 +46,8 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        go_playerCam = GameObject.Find("FirstPersonCharacter");
-
         go_blackOut = GameObject.Find("BlackOut");
         go_player = GameObject.FindGameObjectWithTag("Player");
-        as_memory = GameObject.Find("AudioSource").GetComponent<AudioSource>();
 
         mem_list = new Memory[3];
         mem_list[0] = new Memory(1, MemorySounds[0]);
@@ -160,6 +156,7 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
         {
             unchild(); // Remove Object
             mem_list[in_stage].playerPos = go_player.transform.position;
+            go_player.SetActive(false);
 
             if (go_treeSet[in_stage] != null && in_stage != 1) go_treeSet[in_stage].SetActive(false); // Deactivate the Current Tree Asset
             go_memoryTableau[in_stage].SetActive(true);
@@ -190,8 +187,6 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
     // Run memory based on stage
     void MemorySequence(Memory _mem)
     {
-        Camera.main.transform.LookAt(go_memoryTableau[in_stage].transform);
-
         if (bl_fadeIn == false)
         {
             if (MemorySpot.intensity < 10) MemorySpot.intensity += 0.1f;
@@ -223,16 +218,18 @@ public class CDM_SeedPuzzleManager : MonoBehaviour
                         MemoryTransition(1);
                         MemorySpot.intensity = 0;
 
-                        go_player.SetActive(false);
                         go_player.transform.position = _mem.playerPos;
                         go_player.SetActive(true);
 
                         RenderSettings.skybox = null;
 
-                        go_door[0].transform.localPosition = new Vector3(-1.346f, 1.766f, -1.292f);
-                        go_door[0].transform.localRotation = Quaternion.Euler(0, 105, 0);
-                        go_door[1].transform.localPosition = new Vector3(3.768f, 1.766f, -1.292f);
-                        go_door[1].transform.localRotation = Quaternion.Euler(0, 75, 0);
+                        if (in_stage >= 3)
+                        {
+                            go_door[0].transform.localPosition = new Vector3(-1.346f, 1.766f, -1.292f);
+                            go_door[0].transform.localRotation = Quaternion.Euler(0, 105, 0);
+                            go_door[1].transform.localPosition = new Vector3(3.768f, 1.766f, -1.292f);
+                            go_door[1].transform.localRotation = Quaternion.Euler(0, 75, 0);
+                        }
 
                         bl_fadeIn = true;
                         bl_fadeComplete = false;
