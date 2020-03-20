@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets;
 using UnityStandardAssets.Characters;
 using UnityStandardAssets.Characters.FirstPerson;
@@ -74,7 +75,7 @@ public class CDM_FinalMemory : MonoBehaviour
             {
                 float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
                 Color cl_newFade = go_blackOut.GetComponent<Image>().color;
-
+               
                 if (go_blackOut.GetComponent<Image>().color.a > 0)
                 {
                     cl_newFade.a -= fl_fadeValue;
@@ -117,25 +118,7 @@ public class CDM_FinalMemory : MonoBehaviour
                     }
                     else
                     {
-                        go_endScreen.SetActive(true);
-                        go_player.GetComponent<FirstPersonController>().enabled = false;
-                        Cursor.lockState = CursorLockMode.None;
-                        in_num++;
-                    }
-                }
-                else if (in_num == 1)
-                {
-                    float fl_fadeValue = (1 / fl_fadeDuration) * Time.deltaTime;
-                    Color cl_newFade = go_blackOut.GetComponent<Image>().color;
-
-                    if (go_blackOut.GetComponent<Image>().color.a > 0)
-                    {
-                        cl_newFade.a -= fl_fadeValue;
-                        go_blackOut.GetComponent<Image>().color = cl_newFade;
-                    }
-                    else
-                    {
-                        GetComponent<CDM_FinalMemory>().enabled = false;
+                        SceneManager.LoadScene(0);
                         in_num++;
                     }
                 }
